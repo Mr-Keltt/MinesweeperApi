@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Unit\" />
+    <Folder Include="Integration\" />
+  </ItemGroup>
+
 </Project>

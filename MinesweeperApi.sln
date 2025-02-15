@@ -21,19 +21,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{43BD5B75-8FD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A07C6DEF-F222-4FB1-A22C-F4C516870DF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Application.Models.CommonModels", "Application\Models\MinesweeperApi.Application.Models.CommonModels\MinesweeperApi.Application.Models.CommonModels.csproj", "{A56146ED-4B3B-47B3-8029-52A763A70351}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Models.CommonModels", "Application\Models\MinesweeperApi.Application.Models.CommonModels\MinesweeperApi.Application.Models.CommonModels.csproj", "{A56146ED-4B3B-47B3-8029-52A763A70351}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Application.Services.GameController", "Application\Services\MinesweeperApi.Application.Services.GameController\MinesweeperApi.Application.Services.GameController.csproj", "{C08BFDB9-180E-4006-BC19-076A8B94B488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Services.GameController", "Application\Services\MinesweeperApi.Application.Services.GameController\MinesweeperApi.Application.Services.GameController.csproj", "{C08BFDB9-180E-4006-BC19-076A8B94B488}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Infrastructure.Data.Configuration", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Configuration\MinesweeperApi.Infrastructure.Data.Configuration.csproj", "{26ADBAF3-3906-4FB5-BDC4-3F22EBB9CCC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Data.Configuration", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Configuration\MinesweeperApi.Infrastructure.Data.Configuration.csproj", "{26ADBAF3-3906-4FB5-BDC4-3F22EBB9CCC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Infrastructure.Data.Context", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj", "{ED83CA14-2A45-4576-B694-93A2092AEE90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Data.Context", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj", "{ED83CA14-2A45-4576-B694-93A2092AEE90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Infrastructure.Data.Entities", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj", "{6DDE6C12-ABEC-42C5-8E2E-B821F7858A24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Data.Entities", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj", "{6DDE6C12-ABEC-42C5-8E2E-B821F7858A24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Infrastructure.Repositories.Data", "Infrastructure\Repositories\MinesweeperApi.Infrastructure.Repositories.Data\MinesweeperApi.Infrastructure.Repositories.Data.csproj", "{8C2E4A7B-3B0A-4C47-A5FC-905C78064996}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Repositories.Data", "Infrastructure\Repositories\MinesweeperApi.Infrastructure.Repositories.Data\MinesweeperApi.Infrastructure.Repositories.Data.csproj", "{8C2E4A7B-3B0A-4C47-A5FC-905C78064996}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.API", "Systems\API\MinesweeperApi.API\MinesweeperApi.API.csproj", "{44AE9B2B-C96B-4105-B2E3-F71BA83DFCF7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1907C3FB-437E-4F38-86D5-3290B913D119}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Common", "Shared\MinesweeperApi.Common\MinesweeperApi.Common.csproj", "{EBE6B850-7504-443C-8734-EB65C8747A7E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Tests", "Tests\MinesweeperApi.Application.Tests\MinesweeperApi.Application.Tests.csproj", "{4276E260-C9B5-4427-879C-162396CF1A3F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Tests", "Tests\MinesweeperApi.Infrastructure.Tests\MinesweeperApi.Infrastructure.Tests.csproj", "{79E4FD03-6D37-4665-A4DB-B677B64F3929}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{AA18B23F-54D9-42BD-9C68-4E7C8A08F273}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		docker-compose.override.yml = docker-compose.override.yml
+		docker-compose.yml = docker-compose.yml
+		env.api = env.api
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.API.Tests", "Tests\MinesweeperApi.API.Tests\MinesweeperApi.API.Tests.csproj", "{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.API", "Systems\API\MinesweeperApi.API\MinesweeperApi.API.csproj", "{5EBCA849-3228-4188-848D-A72FC74F6CD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +83,26 @@ Global
 		{8C2E4A7B-3B0A-4C47-A5FC-905C78064996}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C2E4A7B-3B0A-4C47-A5FC-905C78064996}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C2E4A7B-3B0A-4C47-A5FC-905C78064996}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44AE9B2B-C96B-4105-B2E3-F71BA83DFCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44AE9B2B-C96B-4105-B2E3-F71BA83DFCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44AE9B2B-C96B-4105-B2E3-F71BA83DFCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44AE9B2B-C96B-4105-B2E3-F71BA83DFCF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE6B850-7504-443C-8734-EB65C8747A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE6B850-7504-443C-8734-EB65C8747A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE6B850-7504-443C-8734-EB65C8747A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE6B850-7504-443C-8734-EB65C8747A7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4276E260-C9B5-4427-879C-162396CF1A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4276E260-C9B5-4427-879C-162396CF1A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4276E260-C9B5-4427-879C-162396CF1A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4276E260-C9B5-4427-879C-162396CF1A3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E4FD03-6D37-4665-A4DB-B677B64F3929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E4FD03-6D37-4665-A4DB-B677B64F3929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E4FD03-6D37-4665-A4DB-B677B64F3929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E4FD03-6D37-4665-A4DB-B677B64F3929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBCA849-3228-4188-848D-A72FC74F6CD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBCA849-3228-4188-848D-A72FC74F6CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBCA849-3228-4188-848D-A72FC74F6CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBCA849-3228-4188-848D-A72FC74F6CD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,7 +119,11 @@ Global
 		{ED83CA14-2A45-4576-B694-93A2092AEE90} = {41650264-87F9-4391-9F59-71C3D6D47332}
 		{6DDE6C12-ABEC-42C5-8E2E-B821F7858A24} = {41650264-87F9-4391-9F59-71C3D6D47332}
 		{8C2E4A7B-3B0A-4C47-A5FC-905C78064996} = {3A03E9B3-9E60-4349-B6B3-B0258098F0AD}
-		{44AE9B2B-C96B-4105-B2E3-F71BA83DFCF7} = {43BD5B75-8FD8-4A17-A098-FE8DD5AD65F1}
+		{EBE6B850-7504-443C-8734-EB65C8747A7E} = {1907C3FB-437E-4F38-86D5-3290B913D119}
+		{4276E260-C9B5-4427-879C-162396CF1A3F} = {A07C6DEF-F222-4FB1-A22C-F4C516870DF9}
+		{79E4FD03-6D37-4665-A4DB-B677B64F3929} = {A07C6DEF-F222-4FB1-A22C-F4C516870DF9}
+		{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE} = {A07C6DEF-F222-4FB1-A22C-F4C516870DF9}
+		{5EBCA849-3228-4188-848D-A72FC74F6CD5} = {43BD5B75-8FD8-4A17-A098-FE8DD5AD65F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBB9FF93-2BB0-4436-B505-329F305B758C}

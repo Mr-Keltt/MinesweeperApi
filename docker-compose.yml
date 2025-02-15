@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  minesweeper_redis:
+    image: redis:latest
+    
+  minesweeper_api:
+    image: ${DOCKER_REGISTRY-}minesweeper-api
+    build:
+        context: .
+        dockerfile: Systems/API/MinesweeperApi.API/Dockerfile
+    depends_on:
+      - minesweeper_redis
