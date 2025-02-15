@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:   
+  minesweeper_redis:
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/var/lib/redis/data
+    networks:
+      - shared_minesweeper_net
+
+  minesweeper_api:
+    networks:
+      - shared_minesweeper_net
+    env_file:
+      - env.api
+    ports:
+      - "10000:8080"
+
+networks:
+  shared_minesweeper_net:
+    name: minesweeper
+    driver: bridge
+
+volumes:
+  redis_data:

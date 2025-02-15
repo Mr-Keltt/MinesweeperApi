@@ -1,25 +1,43 @@
+using MinesweeperApi.API;
+using MinesweeperApi.API.Configuration;
+using MinesweeperApi.Application.Services.Settings;
+using MinesweeperApi.Common.Settings;
+
+var mainSettings = Settings.Load<MainSettings>("Main");
+var logSettings = Settings.Load<LogSettings>("Log");
+var swaggerSettings = Settings.Load<SwaggerSettings>("Swagger");
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.AddAppLogger(mainSettings, logSettings);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var services = builder.Services;
+
+services.AddAppController();
+
+services.AddHttpContextAccessor();
+
+services.AddAppHealthChecks();
+
+services.AddAppSwagger(swaggerSettings);
+
+services.RegisterServices();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAppController();
 
 app.MapControllers();
+
+app.UseRouting();
+
+app.UseAppHealthChecks();
+
+app.UseAppSwagger();
 
 app.Run();
