@@ -6,7 +6,7 @@ public class AppLogger : IAppLogger
 {
     private readonly Serilog.ILogger logger;
 
-    private string _systemName = "ZooExpoOrg";
+    private string _systemName = "MinesweeperApi";
 
     public AppLogger(Serilog.ILogger logger)
     {

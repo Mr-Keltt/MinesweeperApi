@@ -11,6 +11,7 @@ public static class Bootstrapper
             .AddMainSettings()
             .AddSwaggerSettings()
             .AddLogSettings()
+            .AddAppAutoMappers()
             ;
 
         return service;
