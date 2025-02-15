@@ -1,11 +1,17 @@
 ﻿using Microsoft.OpenApi.Models;
+using MinesweeperApi.Application.Services.Settings;
 
 namespace MinesweeperApi.API.Configuration;
 
 public static class SwaggerConfiguration
 {
-    public static IServiceCollection AddSwaggerSettings(this IServiceCollection services)
+    public static IServiceCollection AddAppSwagger(this IServiceCollection services,
+        SwaggerSettings swaggerSettings
+        )
     {
+        if (!swaggerSettings.Enabled)
+            return services;
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo

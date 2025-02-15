@@ -1,18 +1,28 @@
+using MinesweeperApi.API;
 using MinesweeperApi.API.Configuration;
+using MinesweeperApi.Application.Services.Settings;
+using MinesweeperApi.Common.Settings;
+
+var mainSettings = Settings.Load<MainSettings>("Main");
+var logSettings = Settings.Load<LogSettings>("Log");
+var swaggerSettings = Settings.Load<SwaggerSettings>("Swagger");
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
+builder.AddAppLogger(mainSettings, logSettings);
 
 var services = builder.Services;
+
+services.AddAppController();
 
 services.AddHttpContextAccessor();
 
 services.AddAppHealthChecks();
 
-services.AddSwaggerSettings();
+services.AddAppSwagger(swaggerSettings);
+
+services.RegisterServices();
+
 
 var app = builder.Build();
 
@@ -20,7 +30,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseAppController();
 
 app.MapControllers();
 

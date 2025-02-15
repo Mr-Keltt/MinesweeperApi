@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.13" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
     <PackageReference Include="Serilog" Version="4.2.0" />
     <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
@@ -27,6 +28,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\Models\MinesweeperApi.Application.Models.CommonModels\MinesweeperApi.Application.Models.CommonModels.csproj" />
     <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.GameController\MinesweeperApi.Application.Services.GameController.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Configuration\MinesweeperApi.Infrastructure.Data.Configuration.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj" />
