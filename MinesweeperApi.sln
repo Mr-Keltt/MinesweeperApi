@@ -51,11 +51,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{AA18
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.API.Tests", "Tests\MinesweeperApi.API.Tests\MinesweeperApi.API.Tests.csproj", "{05DA95A0-FA85-4D67-8E80-F903C6B5D6AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.API", "Systems\API\MinesweeperApi.API\MinesweeperApi.API.csproj", "{5EBCA849-3228-4188-848D-A72FC74F6CD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.API", "Systems\API\MinesweeperApi.API\MinesweeperApi.API.csproj", "{5EBCA849-3228-4188-848D-A72FC74F6CD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Application.Services.Logger", "Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj", "{54B1FFA9-5B96-4875-A77E-553B473B1302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Services.Logger", "Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj", "{54B1FFA9-5B96-4875-A77E-553B473B1302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Application.Services.Settings", "Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj", "{5B4DBF75-8F52-4818-AFD3-E1E2644BFEC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Services.Settings", "Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj", "{5B4DBF75-8F52-4818-AFD3-E1E2644BFEC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
