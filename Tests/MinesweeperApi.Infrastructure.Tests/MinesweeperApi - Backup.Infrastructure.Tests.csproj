@@ -11,8 +11,4 @@
     <Folder Include="Unit\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-  </ItemGroup>
-	
 </Project>
