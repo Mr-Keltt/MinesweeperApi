@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{43BD5B75-8FD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A07C6DEF-F222-4FB1-A22C-F4C516870DF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Services.GameController", "Application\Services\MinesweeperApi.Application.Services.GameController\MinesweeperApi.Application.Services.GameController.csproj", "{C08BFDB9-180E-4006-BC19-076A8B94B488}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Data.Context", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj", "{ED83CA14-2A45-4576-B694-93A2092AEE90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Infrastructure.Data.Entities", "Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj", "{6DDE6C12-ABEC-42C5-8E2E-B821F7858A24}"
@@ -53,7 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Services.Settings", "Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj", "{5B4DBF75-8F52-4818-AFD3-E1E2644BFEC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Application.Models", "Application\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj", "{406E3A42-B7AD-4D0B-9C8D-7F0A05A0780D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinesweeperApi.Application.Models", "Application\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj", "{406E3A42-B7AD-4D0B-9C8D-7F0A05A0780D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinesweeperApi.Application.Services.GameService", "Application\Services\MinesweeperApi.Application.Services.GameService\MinesweeperApi.Application.Services.GameService.csproj", "{A8AD7F7A-C1D5-4239-8B1A-236205301B04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,10 +61,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C08BFDB9-180E-4006-BC19-076A8B94B488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C08BFDB9-180E-4006-BC19-076A8B94B488}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C08BFDB9-180E-4006-BC19-076A8B94B488}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C08BFDB9-180E-4006-BC19-076A8B94B488}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED83CA14-2A45-4576-B694-93A2092AEE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED83CA14-2A45-4576-B694-93A2092AEE90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED83CA14-2A45-4576-B694-93A2092AEE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -109,6 +105,10 @@ Global
 		{406E3A42-B7AD-4D0B-9C8D-7F0A05A0780D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{406E3A42-B7AD-4D0B-9C8D-7F0A05A0780D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{406E3A42-B7AD-4D0B-9C8D-7F0A05A0780D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8AD7F7A-C1D5-4239-8B1A-236205301B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8AD7F7A-C1D5-4239-8B1A-236205301B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8AD7F7A-C1D5-4239-8B1A-236205301B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8AD7F7A-C1D5-4239-8B1A-236205301B04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,7 +119,6 @@ Global
 		{41650264-87F9-4391-9F59-71C3D6D47332} = {DD0F1507-DD40-42E4-AF0B-07CB09621574}
 		{3A03E9B3-9E60-4349-B6B3-B0258098F0AD} = {DD0F1507-DD40-42E4-AF0B-07CB09621574}
 		{43BD5B75-8FD8-4A17-A098-FE8DD5AD65F1} = {025F4613-D149-44F1-B580-B079A0ED1AAE}
-		{C08BFDB9-180E-4006-BC19-076A8B94B488} = {E7E3B965-C9EA-49D6-A936-590765CCCC97}
 		{ED83CA14-2A45-4576-B694-93A2092AEE90} = {41650264-87F9-4391-9F59-71C3D6D47332}
 		{6DDE6C12-ABEC-42C5-8E2E-B821F7858A24} = {41650264-87F9-4391-9F59-71C3D6D47332}
 		{8C2E4A7B-3B0A-4C47-A5FC-905C78064996} = {3A03E9B3-9E60-4349-B6B3-B0258098F0AD}
@@ -131,6 +130,7 @@ Global
 		{54B1FFA9-5B96-4875-A77E-553B473B1302} = {E7E3B965-C9EA-49D6-A936-590765CCCC97}
 		{5B4DBF75-8F52-4818-AFD3-E1E2644BFEC6} = {E7E3B965-C9EA-49D6-A936-590765CCCC97}
 		{406E3A42-B7AD-4D0B-9C8D-7F0A05A0780D} = {2AD4211A-FBB1-49CF-B641-28517EDC2264}
+		{A8AD7F7A-C1D5-4239-8B1A-236205301B04} = {E7E3B965-C9EA-49D6-A936-590765CCCC97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBB9FF93-2BB0-4436-B505-329F305B758C}
