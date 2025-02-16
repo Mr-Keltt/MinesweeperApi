@@ -1,5 +1,6 @@
 ﻿using MinesweeperApi.API.Configuration;
 using MinesweeperApi.Application.Services.Settings;
+using MinesweeperApi.Infrastructure.Repositories;
 
 namespace MinesweeperApi.API;
 
@@ -11,7 +12,9 @@ public static class Bootstrapper
             .AddMainSettings()
             .AddSwaggerSettings()
             .AddLogSettings()
+            .AddRedisSettings()
             .AddAppAutoMappers()
+            .AddRedis()
             ;
 
         return service;

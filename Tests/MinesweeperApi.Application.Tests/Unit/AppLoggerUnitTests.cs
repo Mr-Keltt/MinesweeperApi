@@ -8,7 +8,7 @@ using MinesweeperApi.Application.Services.Logger;
 namespace MinesweeperApi.Application.Tests
 {
     [TestClass]
-    public class AppLoggerTests
+    public class AppLoggerUnitTests
     {
         private Mock<ILogger> _mockLogger;
         private AppLogger _appLogger;
