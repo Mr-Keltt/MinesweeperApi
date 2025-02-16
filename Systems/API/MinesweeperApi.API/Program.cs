@@ -1,11 +1,11 @@
 using MinesweeperApi.API;
 using MinesweeperApi.API.Configuration;
 using MinesweeperApi.Application.Services.Settings;
-using MinesweeperApi.Common.Settings;
 
-var mainSettings = Settings.Load<MainSettings>("Main");
-var logSettings = Settings.Load<LogSettings>("Log");
-var swaggerSettings = Settings.Load<SwaggerSettings>("Swagger");
+
+var mainSettings = MinesweeperApi.Common.Settings.Settings.Load<MainSettings>("Main");
+var logSettings = MinesweeperApi.Common.Settings.Settings.Load<LogSettings>("Log");
+var swaggerSettings = MinesweeperApi.Common.Settings.Settings.Load<SwaggerSettings>("Swagger");
 
 var builder = WebApplication.CreateBuilder(args);
 
