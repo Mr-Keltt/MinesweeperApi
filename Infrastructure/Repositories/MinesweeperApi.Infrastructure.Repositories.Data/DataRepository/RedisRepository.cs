@@ -1,6 +1,8 @@
 ﻿using StackExchange.Redis;
 using Newtonsoft.Json;
 using MinesweeperApi.Infrastructure.Data.Context;
+using AutoMapper;
+using MinesweeperApi.Infrastructure.Data.Entities;
 
 namespace MinesweeperApi.Infrastructure.Repositories
 {
@@ -8,27 +10,54 @@ namespace MinesweeperApi.Infrastructure.Repositories
     {
         private readonly IDatabase _database;
         private readonly TimeSpan _expiry = TimeSpan.FromHours(1);
+        private readonly IMapper _mapper;
 
-        public RedisRepository(IRedisContext redisContext)
+        public RedisRepository(IRedisContext redisContext, IMapper mapper)
         {
             _database = redisContext.Database;
+            this._mapper = mapper;
         }
 
-        public async Task SetAsync(Guid key, int[,] data)
+        public async Task<GameEntity> SetAsync(GameEntity newGame)
         {
-            string serializedData = JsonConvert.SerializeObject(data);
-            await _database.StringSetAsync(key.ToString(), serializedData, _expiry);
+            string stringKey = newGame.Id;
+            string serializedData = newGame.Game;
+
+            await _database.StringSetAsync(stringKey, serializedData, _expiry);
+
+            return newGame;
         }
 
-        public async Task<int[,]> GetAsync(Guid key)
+        public async Task<GameEntity> GetAsync(Guid gameId)
         {
-            var data = await _database.StringGetAsync(key.ToString());
-            return data.HasValue ? JsonConvert.DeserializeObject<int[,]>(data) : null;
+            string stringId = gameId.ToString();
+
+            if (!await _database.KeyExistsAsync(stringId))
+            {
+                throw new KeyNotFoundException($"The record with the id '{gameId}' was not found in Redis.");
+            }
+
+            var game = await _database.StringGetAsync(stringId);
+
+            GameEntity gameEntity = new GameEntity
+            {
+                Id = stringId,
+                Game = game.ToString()
+            };
+
+            return gameEntity;
         }
 
-        public async Task<bool> DeleteAsync(Guid key)
+        public async Task DeleteAsync(Guid gameId)
         {
-            return await _database.KeyDeleteAsync(key.ToString());
+            string stringId = gameId.ToString();
+
+            if (!await _database.KeyExistsAsync(stringId))
+            {
+                throw new KeyNotFoundException($"The record with the id '{gameId}' was not found in Redis.");
+            }
+
+            await _database.KeyDeleteAsync(stringId);
         }
     }
 }
