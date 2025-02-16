@@ -3,5 +3,5 @@
 public class GameEntity
 {
     public Guid Id { get; set; }
-    public string BoardJson { get; set; }
+    public string FieldJson { get; set; }
 }

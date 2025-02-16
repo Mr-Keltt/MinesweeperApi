@@ -22,12 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Application\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj" />
-    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.GameController\MinesweeperApi.Application.Services.GameController.csproj" />
     <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj" />
     <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj" />
