@@ -1,19 +1,34 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AutoMapper;
+using MinesweeperApi.Application.Models;
+using Newtonsoft.Json;
 
 namespace MinesweeperApi.API.Models;
 
 public class NewGameRequest
 {
-    [Required]
-    [Range(1, 30, ErrorMessage = "Ширина должна быть от 1 до 30.")]
+    /// <summary>
+    /// Ширина игрового поля
+    /// </summary>
+    [JsonProperty("width")]
     public int Width { get; set; }
 
-    [Required]
-    [Range(1, 30, ErrorMessage = "Высота должна быть от 1 до 30.")]
+    /// <summary>
+    /// Высота игрового поля
+    /// </summary>
+    [JsonProperty("height")]
     public int Height { get; set; }
 
-    [Required]
-    [Range(1, int.MaxValue, ErrorMessage = "Количество мин должно быть положительным.")]
+    /// <summary>
+    /// Количество мин на поле
+    /// </summary>
+    [JsonProperty("mines_count")]
     public int MinesCount { get; set; }
 }
 
+public class NewGameRequestProfile : Profile
+{
+    public NewGameRequestProfile()
+    {
+        CreateMap<NewGameRequest, CreateGameModel>();
+    }
+}

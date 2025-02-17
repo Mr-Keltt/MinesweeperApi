@@ -1,8 +1,8 @@
 ﻿namespace MinesweeperApi.Application.Models;
 
-public interface MoveModel : IMoveModel
+public class MoveModel
 {
-    Guid GameId { get; set; }
-    int Col { get; set; }
-    int Row { get; set; }
+    public Guid GameId { get; set; }
+    public int Col { get; set; }
+    public int Row { get; set; }
 }

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Infrastructure\Repositories\MinesweeperApi.Infrastructure.Repositories.Data\MinesweeperApi.Infrastructure.Repositories.Data.csproj" />
     <ProjectReference Include="..\..\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj" />
+    <ProjectReference Include="..\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj" />
   </ItemGroup>
 
 </Project>
