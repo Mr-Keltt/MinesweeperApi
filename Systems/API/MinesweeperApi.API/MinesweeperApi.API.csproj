@@ -4,14 +4,32 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>745fca14-a164-4a7d-a12c-ccacdf6b99b0</UserSecretsId>
+    <UserSecretsId>14180f86-35ee-4a29-8a34-eb2ef596a433</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.13" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.GameService\MinesweeperApi.Application.Services.GameService.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Repositories\MinesweeperApi.Infrastructure.Repositories.Data\MinesweeperApi.Infrastructure.Repositories.Data.csproj" />
+    <ProjectReference Include="..\..\..\Shared\MinesweeperApi.Common\MinesweeperApi.Common.csproj" />
   </ItemGroup>
 
 </Project>

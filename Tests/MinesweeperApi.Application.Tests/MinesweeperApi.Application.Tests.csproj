@@ -4,6 +4,26 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
+  </PropertyGroup><ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.8.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.8.0" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Moq" Version="4.20.72" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.8.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.8.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Application\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj" />
+	  <ProjectReference Include="..\..\Application\Services\MinesweeperApi.Application.Services.GameService\MinesweeperApi.Application.Services.GameService.csproj" />
+	  <ProjectReference Include="..\..\Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\Repositories\MinesweeperApi.Infrastructure.Repositories.Data\MinesweeperApi.Infrastructure.Repositories.Data.csproj" />
+	</ItemGroup>
 
 </Project>

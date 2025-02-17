@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj" />
+    <ProjectReference Include="..\..\Data\MinesweeperApi.Infrastructure.Data.Entities\MinesweeperApi.Infrastructure.Data.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
