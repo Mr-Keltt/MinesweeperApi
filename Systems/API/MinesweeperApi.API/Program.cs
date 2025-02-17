@@ -23,10 +23,14 @@ services.AddAppSwagger(swaggerSettings);
 
 services.RegisterServicesAndModels();
 
+services.AddAppCors();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseAppCors();
 
 app.UseHttpsRedirection();
 

@@ -22,7 +22,7 @@ public static class Bootstrapper
             .AddRedis()
             .AddGameService()
             .AddApplicationModels()
-            .AddAutoMapper(typeof(GameResponseProfile))
+            .AddAutoMapper(typeof(GameInfoResponseProfile))
             ;
 
         return service;
