@@ -1,34 +1,46 @@
 ﻿using AutoMapper;
 using MinesweeperApi.Application.Models;
 using Newtonsoft.Json;
+using System;
 
-namespace MinesweeperApi.API.Models;
-
-public class GameTurnRequest
+namespace MinesweeperApi.API.Models
 {
     /// <summary>
-    /// Идентификатор игры
+    /// Represents a request to perform a move (turn) in a Minesweeper game.
     /// </summary>
-    [JsonProperty("game_id")]
-    public Guid GameId { get; set; }
-
-    /// <summary>
-    /// Колонка проверяемой ячейки (нумерация с нуля)
-    /// </summary>
-    [JsonProperty("col")]
-    public int Col { get; set; }
-
-    /// <summary>
-    /// Ряд проверяемой ячейки (нумерация с нуля)
-    /// </summary>
-    [JsonProperty("row")]
-    public int Row { get; set; }
-}
-
-public class GameTurnRequestProfile : Profile
-{
-    public GameTurnRequestProfile()
+    public class GameTurnRequest
     {
-        CreateMap<GameTurnRequest, MoveModel>();
+        /// <summary>
+        /// Gets or sets the unique identifier of the game.
+        /// </summary>
+        [JsonProperty("game_id")]
+        public Guid GameId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the column index of the cell to be checked (zero-based indexing).
+        /// </summary>
+        [JsonProperty("col")]
+        public int Col { get; set; }
+
+        /// <summary>
+        /// Gets or sets the row index of the cell to be checked (zero-based indexing).
+        /// </summary>
+        [JsonProperty("row")]
+        public int Row { get; set; }
+    }
+
+    /// <summary>
+    /// AutoMapper profile for mapping <see cref="GameTurnRequest"/> to <see cref="MoveModel"/>.
+    /// </summary>
+    public class GameTurnRequestProfile : Profile
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameTurnRequestProfile"/> class.
+        /// Configures the mapping from <see cref="GameTurnRequest"/> to <see cref="MoveModel"/>.
+        /// </summary>
+        public GameTurnRequestProfile()
+        {
+            CreateMap<GameTurnRequest, MoveModel>();
+        }
     }
 }

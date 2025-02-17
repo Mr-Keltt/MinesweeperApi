@@ -1,87 +1,105 @@
-﻿namespace MinesweeperApi.Application.Services.Settings;
-
-public class LogSettings
+﻿namespace MinesweeperApi.Application.Services.Settings
 {
-    public string Level { get; private set; }
-    public bool WriteToConsole { get; private set; }
-    public bool WriteToFile { get; private set; }
-    public string FileRollingInterval { get; private set; }
-    public string FileRollingSize { get; private set; }
-}
+    /// <summary>
+    /// Represents configuration settings for logging within the application.
+    /// </summary>
+    public class LogSettings
+    {
+        /// <summary>
+        /// Gets the logging level as a string. Expected values correspond to the <see cref="LogLevel"/> enumeration.
+        /// </summary>
+        public string Level { get; private set; }
 
-public enum LogLevel
-{
-    //
-    // Summary:
-    //     Anything and everything you might want to know about a running block of code.
-    Verbose,
+        /// <summary>
+        /// Gets a value indicating whether logs should be written to the console.
+        /// </summary>
+        public bool WriteToConsole { get; private set; }
 
-    //
-    // Summary:
-    //     Internal system events that aren't necessarily observable from the outside.
-    Debug,
+        /// <summary>
+        /// Gets a value indicating whether logs should be written to a file.
+        /// </summary>
+        public bool WriteToFile { get; private set; }
 
-    //
-    // Summary:
-    //     The lifeblood of operational intelligence - things happen.
-    Information,
+        /// <summary>
+        /// Gets the file rolling interval as a string. Expected values correspond to the <see cref="LogRollingInterval"/> enumeration.
+        /// </summary>
+        public string FileRollingInterval { get; private set; }
 
-    //
-    // Summary:
-    //     Service is degraded or endangered.
-    Warning,
+        /// <summary>
+        /// Gets the file rolling size as a string that defines the maximum size before rolling the log file.
+        /// </summary>
+        public string FileRollingSize { get; private set; }
+    }
 
-    //
-    // Summary:
-    //     Functionality is unavailable, invariants are broken or data is lost.
-    Error,
+    /// <summary>
+    /// Specifies the level of logging for operational and diagnostic purposes.
+    /// </summary>
+    public enum LogLevel
+    {
+        /// <summary>
+        /// Verbose logging. Contains everything you might want to know about a running block of code.
+        /// </summary>
+        Verbose,
 
-    //
-    // Summary:
-    //     If you have a pager, it goes off when one of these occurs.
-    Fatal
-}
+        /// <summary>
+        /// Debug logging. Provides internal system events that are not necessarily observable from the outside.
+        /// </summary>
+        Debug,
 
-public enum LogRollingInterval
-{
-    //
-    // Summary:
-    //     The log file will never roll; no time period information will be appended to
-    //     the log file name.
-    Infinite,
+        /// <summary>
+        /// Information logging. Represents key operational events in the application.
+        /// </summary>
+        Information,
 
-    //
-    // Summary:
-    //     Roll every year. Filenames will have a four-digit year appended in the pattern
-    //     yyyy
-    //     .
-    Year,
+        /// <summary>
+        /// Warning logging. Indicates that the service is degraded or endangered.
+        /// </summary>
+        Warning,
 
-    //
-    // Summary:
-    //     Roll every calendar month. Filenames will have
-    //     yyyyMM
-    //     appended.
-    Month,
+        /// <summary>
+        /// Error logging. Indicates that functionality is unavailable, invariants are broken, or data is lost.
+        /// </summary>
+        Error,
 
-    //
-    // Summary:
-    //     Roll every day. Filenames will have
-    //     yyyyMMdd
-    //     appended.
-    Day,
+        /// <summary>
+        /// Fatal logging. Indicates critical failures that require immediate attention.
+        /// </summary>
+        Fatal
+    }
 
-    //
-    // Summary:
-    //     Roll every hour. Filenames will have
-    //     yyyyMMddHH
-    //     appended.
-    Hour,
+    /// <summary>
+    /// Specifies the interval at which log files should roll over.
+    /// </summary>
+    public enum LogRollingInterval
+    {
+        /// <summary>
+        /// Infinite interval. The log file will never roll; no time period information will be appended to the log file name.
+        /// </summary>
+        Infinite,
 
-    //
-    // Summary:
-    //     Roll every minute. Filenames will have
-    //     yyyyMMddHHmm
-    //     appended.
-    Minute
+        /// <summary>
+        /// Yearly interval. The log file will roll every year, with filenames appended with the four-digit year (yyyy).
+        /// </summary>
+        Year,
+
+        /// <summary>
+        /// Monthly interval. The log file will roll every calendar month, with filenames appended with the year and month (yyyyMM).
+        /// </summary>
+        Month,
+
+        /// <summary>
+        /// Daily interval. The log file will roll every day, with filenames appended with the date (yyyyMMdd).
+        /// </summary>
+        Day,
+
+        /// <summary>
+        /// Hourly interval. The log file will roll every hour, with filenames appended with the date and hour (yyyyMMddHH).
+        /// </summary>
+        Hour,
+
+        /// <summary>
+        /// Minute interval. The log file will roll every minute, with filenames appended with the date, hour, and minute (yyyyMMddHHmm).
+        /// </summary>
+        Minute
+    }
 }

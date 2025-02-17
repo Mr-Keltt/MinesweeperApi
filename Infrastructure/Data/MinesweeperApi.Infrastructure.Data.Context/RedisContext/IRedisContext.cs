@@ -1,8 +1,15 @@
 ﻿using StackExchange.Redis;
 
-namespace MinesweeperApi.Infrastructure.Data.Context;
-
-public interface IRedisContext
+namespace MinesweeperApi.Infrastructure.Data.Context
 {
-    IDatabase Database { get; }
+    /// <summary>
+    /// Defines a contract for a Redis context which provides access to a Redis database.
+    /// </summary>
+    public interface IRedisContext
+    {
+        /// <summary>
+        /// Gets the Redis database instance for executing commands against the Redis data store.
+        /// </summary>
+        IDatabase Database { get; }
+    }
 }
