@@ -1,107 +1,139 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StackExchange.Redis;
-using MinesweeperApi.Infrastructure.Data.Context;
 using MinesweeperApi.Infrastructure.Repositories;
+using MinesweeperApi.Infrastructure.Data.Context;
+using MinesweeperApi.Infrastructure.Data.Entities;
 
-namespace MinesweeperApi.Infrastructure.Tests
+namespace MinesweeperApi.Infrastructure.RedisRepositoryUnitTests;
+
+[TestClass]
+public class RedisRepositoryTests
 {
-    [TestClass]
-    public class RedisRepositoryUnitTests
+    private Mock<IDatabase> _mockDatabase;
+    private Mock<IRedisContext> _mockRedisContext;
+    private RedisRepository _repository;
+
+    [TestInitialize]
+    public void Setup()
     {
-        private Mock<IRedisContext> _redisContextMock;
-        private Mock<IDatabase> _databaseMock;
-        private RedisRepository _repository;
+        _mockDatabase = new Mock<IDatabase>();
+        _mockRedisContext = new Mock<IRedisContext>();
+        _mockRedisContext.SetupGet(x => x.Database).Returns(_mockDatabase.Object);
 
-        [TestInitialize]
-        public void SetUp()
+        _repository = new RedisRepository(_mockRedisContext.Object, null);
+    }
+
+    [TestMethod]
+    public async Task SetAsync_Should_Save_Record_And_Return_GameEntity()
+    {
+        // Arrange
+        var gameEntity = new GameEntity
         {
-            _databaseMock = new Mock<IDatabase>();
-            _redisContextMock = new Mock<IRedisContext>();
+            Id = "TestId",
+            Game = "{\"some\":\"json\"}"
+        };
 
-            _redisContextMock
-                .SetupGet(r => r.Database)
-                .Returns(_databaseMock.Object);
+        _mockDatabase
+            .Setup(db => db.StringSetAsync(
+                It.IsAny<RedisKey>(),
+                It.IsAny<RedisValue>(),
+                It.IsAny<TimeSpan>(),
+                It.IsAny<When>(),
+                It.IsAny<CommandFlags>()))
+            .ReturnsAsync(true);
 
-            _repository = new RedisRepository(_redisContextMock.Object);
-        }
+        // Act
+        GameEntity result = await _repository.SetAsync(gameEntity);
 
-        [TestMethod]
-        public async Task SetAsync_ValidData_CallsStringSetAsyncWithCorrectParameters()
-        {
-            // Arrange
-            var key = Guid.NewGuid();
-            var data = new int[,] { { 1, 2 }, { 3, 4 } };
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(gameEntity.Id, result.Id);
+        Assert.AreEqual(gameEntity.Game, result.Game);
 
-            // Act
-            await _repository.SetAsync(key, data);
+        _mockDatabase.Verify(db => db.StringSetAsync(
+            gameEntity.Id,
+            gameEntity.Game,
+            It.IsAny<TimeSpan>(),
+            false,
+            When.Always,
+            CommandFlags.None), Times.Once);
+    }
 
-            // Assert
-            _databaseMock.Verify(db =>
-                db.StringSetAsync(
-                    key.ToString(),
-                    It.IsAny<RedisValue>(),
-                    TimeSpan.FromHours(1),
-                    false,
-                    When.Always,
-                    CommandFlags.None),
-                Times.Once
-            );
-        }
+    [TestMethod]
+    public async Task GetAsync_Should_Return_GameEntity_When_Record_Exists()
+    {
+        // Arrange
+        Guid testGuid = Guid.NewGuid();
+        string stringId = testGuid.ToString();
+        string storedJson = "{\"some\":\"json\"}";
 
-        [TestMethod]
-        public async Task GetAsync_KeyExists_ReturnsDeserializedArray()
-        {
-            // Arrange
-            var key = Guid.NewGuid();
-            var expected = new int[,] { { 1, 2 }, { 3, 4 } };
-            var serialized = Newtonsoft.Json.JsonConvert.SerializeObject(expected);
+        _mockDatabase.Setup(db => db.KeyExistsAsync(stringId, It.IsAny<CommandFlags>()))
+                     .ReturnsAsync(true);
+        _mockDatabase.Setup(db => db.StringGetAsync(stringId, It.IsAny<CommandFlags>()))
+                     .ReturnsAsync(storedJson);
 
-            _databaseMock
-                .Setup(db => db.StringGetAsync(key.ToString(), It.IsAny<CommandFlags>()))
-                .ReturnsAsync(serialized);
+        // Act
+        GameEntity result = await _repository.GetAsync(testGuid);
 
-            // Act
-            var result = await _repository.GetAsync(key);
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(stringId, result.Id);
+        Assert.AreEqual(storedJson, result.Game);
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(expected[0, 0], result[0, 0]);
-            Assert.AreEqual(expected[1, 1], result[1, 1]);
-        }
+        _mockDatabase.Verify(db => db.KeyExistsAsync(stringId, It.IsAny<CommandFlags>()), Times.Once);
+        _mockDatabase.Verify(db => db.StringGetAsync(stringId, It.IsAny<CommandFlags>()), Times.Once);
+    }
 
-        [TestMethod]
-        public async Task GetAsync_KeyNotExists_ReturnsNull()
-        {
-            // Arrange
-            var key = Guid.NewGuid();
+    [TestMethod]
+    [ExpectedException(typeof(KeyNotFoundException))]
+    public async Task GetAsync_Should_Throw_KeyNotFoundException_When_Record_Does_Not_Exist()
+    {
+        // Arrange
+        Guid testGuid = Guid.NewGuid();
+        string stringId = testGuid.ToString();
 
-            _databaseMock
-                .Setup(db => db.StringGetAsync(key.ToString(), It.IsAny<CommandFlags>()))
-                .ReturnsAsync((RedisValue)RedisValue.Null);
+        _mockDatabase.Setup(db => db.KeyExistsAsync(stringId, It.IsAny<CommandFlags>()))
+                     .ReturnsAsync(false);
 
-            // Act
-            var result = await _repository.GetAsync(key);
+        // Act
+        await _repository.GetAsync(testGuid);
+    }
 
-            // Assert
-            Assert.IsNull(result);
-        }
+    [TestMethod]
+    public async Task DeleteAsync_Should_Delete_Record_When_Record_Exists()
+    {
+        // Arrange
+        Guid testGuid = Guid.NewGuid();
+        string stringId = testGuid.ToString();
 
-        [TestMethod]
-        public async Task DeleteAsync_ValidKey_DeletesKeyAndReturnsTrue()
-        {
-            // Arrange
-            var key = Guid.NewGuid();
-            _databaseMock
-                .Setup(db => db.KeyDeleteAsync(key.ToString(), It.IsAny<CommandFlags>()))
-                .ReturnsAsync(true);
+        _mockDatabase.Setup(db => db.KeyExistsAsync(stringId, It.IsAny<CommandFlags>()))
+                     .ReturnsAsync(true);
+        _mockDatabase.Setup(db => db.KeyDeleteAsync(stringId, It.IsAny<CommandFlags>()))
+                     .ReturnsAsync(true);
 
-            // Act
-            var deleted = await _repository.DeleteAsync(key);
+        // Act
+        await _repository.DeleteAsync(testGuid);
 
-            // Assert
-            Assert.IsTrue(deleted);
-            _databaseMock.Verify(db => db.KeyDeleteAsync(key.ToString(), CommandFlags.None), Times.Once);
-        }
+        // Assert
+        _mockDatabase.Verify(db => db.KeyExistsAsync(stringId, It.IsAny<CommandFlags>()), Times.Once);
+        _mockDatabase.Verify(db => db.KeyDeleteAsync(stringId, It.IsAny<CommandFlags>()), Times.Once);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(KeyNotFoundException))]
+    public async Task DeleteAsync_Should_Throw_KeyNotFoundException_When_Record_Does_Not_Exist()
+    {
+        // Arrange
+        Guid testGuid = Guid.NewGuid();
+        string stringId = testGuid.ToString();
+
+        _mockDatabase.Setup(db => db.KeyExistsAsync(stringId, It.IsAny<CommandFlags>()))
+                     .ReturnsAsync(false);
+
+        // Act
+        await _repository.DeleteAsync(testGuid);
     }
 }

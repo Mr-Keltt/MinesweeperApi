@@ -2,6 +2,6 @@
 
 public class GameEntity
 {
-    public Guid Id { get; set; }
-    public string FieldJson { get; set; }
+    public string Id { get; set; }
+    public string Game { get; set; }
 }

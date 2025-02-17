@@ -1,6 +1,7 @@
 ﻿using MinesweeperApi.API.Configuration;
 using MinesweeperApi.Application.Services.Settings;
 using MinesweeperApi.Infrastructure.Repositories;
+using MinesweeperApi.Application.Services.GameService;
 
 namespace MinesweeperApi.API;
 
@@ -15,6 +16,7 @@ public static class Bootstrapper
             .AddRedisSettings()
             .AddAppAutoMappers()
             .AddRedis()
+            .AddGameService()
             ;
 
         return service;
