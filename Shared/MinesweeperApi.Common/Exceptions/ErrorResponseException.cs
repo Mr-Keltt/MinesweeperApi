@@ -1,40 +1,78 @@
-﻿namespace MinesweeperApi.Common.Exceptions;
-
-using Responses;
-using System;
-
-public class ErrorResponseException : Exception
+﻿namespace MinesweeperApi.Common.Exceptions
 {
-    public ErrorResponse ErrorResponse { get; } = new();
+    using System;
+    using Responses;
 
-
-    #region Constructors
-
-    public ErrorResponseException()
+    /// <summary>
+    /// Represents an exception that encapsulates an <see cref="ErrorResponse"/> object.
+    /// This exception is used to propagate detailed error responses throughout the application.
+    /// </summary>
+    public class ErrorResponseException : Exception
     {
-    }
+        /// <summary>
+        /// Gets the <see cref="ErrorResponse"/> associated with this exception.
+        /// </summary>
+        public ErrorResponse ErrorResponse { get; } = new();
 
-    public ErrorResponseException(string message) : base(message)
-    {
-    }
+        #region Constructors
 
-    public ErrorResponseException(Exception inner) : base(inner.Message, inner)
-    {
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class.
+        /// </summary>
+        public ErrorResponseException()
+        {
+        }
 
-    public ErrorResponseException(string message, Exception inner) : base(message, inner)
-    {
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class with a specified error message.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        public ErrorResponseException(string message)
+            : base(message)
+        {
+        }
 
-    public ErrorResponseException(ErrorResponse errorResponse) : base()
-    {
-        ErrorResponse = errorResponse;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class with a specified inner exception.
+        /// </summary>
+        /// <param name="inner">The exception that is the cause of the current exception.</param>
+        public ErrorResponseException(Exception inner)
+            : base(inner.Message, inner)
+        {
+        }
 
-    public ErrorResponseException(ErrorResponse errorResponse, Exception inner) : base(null, inner)
-    {
-        ErrorResponse = errorResponse;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class with a specified error message and inner exception.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="inner">The exception that is the cause of the current exception.</param>
+        public ErrorResponseException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
 
-    #endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class with a specified <see cref="ErrorResponse"/>.
+        /// </summary>
+        /// <param name="errorResponse">The error response object containing detailed error information.</param>
+        public ErrorResponseException(ErrorResponse errorResponse)
+            : base()
+        {
+            ErrorResponse = errorResponse;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ErrorResponseException"/> class with a specified <see cref="ErrorResponse"/>
+        /// and inner exception.
+        /// </summary>
+        /// <param name="errorResponse">The error response object containing detailed error information.</param>
+        /// <param name="inner">The exception that is the cause of the current exception.</param>
+        public ErrorResponseException(ErrorResponse errorResponse, Exception inner)
+            : base(null, inner)
+        {
+            ErrorResponse = errorResponse;
+        }
+
+        #endregion
+    }
 }

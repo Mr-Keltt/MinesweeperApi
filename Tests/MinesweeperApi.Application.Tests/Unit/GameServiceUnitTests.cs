@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using Moq;
 using Newtonsoft.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,11 +9,12 @@ using MinesweeperApi.Application.Services.GameService;
 using MinesweeperApi.Infrastructure.Data.Entities;
 using MinesweeperApi.Infrastructure.Repositories;
 using MinesweeperApi.Application.Services.Logger;
-using System;
-using System.Threading.Tasks;
 
 namespace MinesweeperApi.Application.GameServiceUnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the GameService using mocked dependencies.
+    /// </summary>
     [TestClass]
     public class GameServiceUnitTests
     {
@@ -21,6 +24,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
         private Mock<IAppLogger> _appLoggerMock;
         private GameService _gameService;
 
+        /// <summary>
+        /// Sets up the test context, initializing mocks, AutoMapper configuration, and the GameService instance.
+        /// </summary>
         [TestInitialize]
         public void Setup()
         {
@@ -38,6 +44,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
             TestContext.WriteLine("Setup finished.");
         }
 
+        /// <summary>
+        /// Tests that creating a new game with valid parameters returns a game with correct properties.
+        /// </summary>
         [TestMethod]
         public async Task CreateNewGameAsync_WithValidParameters_ShouldReturnNewGame()
         {
@@ -70,6 +79,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
             Assert.AreEqual(10, game.CurrentField.GetLength(1));
         }
 
+        /// <summary>
+        /// Tests that creating a new game with an invalid mines count throws an ArgumentException.
+        /// </summary>
         [DataTestMethod]
         [DataRow(0, 10, 10)]
         [DataRow(100, 10, 10)]
@@ -92,6 +104,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
             });
         }
 
+        /// <summary>
+        /// Tests that making a safe move reveals the field correctly and updates the game status.
+        /// </summary>
         [TestMethod]
         public async Task MakeMove_WithValidSafeMove_ShouldRevealFieldAndUpdateGame()
         {
@@ -107,9 +122,11 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 CurrentField = new int[5, 5]
             };
 
+            // Initialize the field: mark all cells as unopened (-1)
             for (int i = 0; i < 5; i++)
                 for (int j = 0; j < 5; j++)
                     gameModel.CurrentField[i, j] = -1;
+            // Place mines at specific positions
             gameModel.CurrentField[1, 1] = -2;
             gameModel.CurrentField[2, 2] = -2;
             gameModel.CurrentField[3, 3] = -2;
@@ -137,6 +154,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
             Assert.IsFalse(updatedGame.Completed);
         }
 
+        /// <summary>
+        /// Tests that making a move on a mine completes the game and deletes the game from the repository.
+        /// </summary>
         [TestMethod]
         public async Task MakeMove_OnMine_ShouldCompleteGameAndDeleteFromRepository()
         {
@@ -152,9 +172,11 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 CurrentField = new int[5, 5]
             };
 
+            // Initialize the field: mark all cells as unopened (-1)
             for (int i = 0; i < 5; i++)
                 for (int j = 0; j < 5; j++)
                     gameModel.CurrentField[i, j] = -1;
+            // Place a mine at (2,2)
             gameModel.CurrentField[2, 2] = -2;
 
             var gameEntity = new GameEntity
@@ -184,6 +206,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
             _redisRepositoryMock.Verify(r => r.DeleteAsync(gameModel.Id), Times.Once);
         }
 
+        /// <summary>
+        /// Tests that making a move with out-of-bounds coordinates throws an ArgumentException.
+        /// </summary>
         [DataTestMethod]
         [DataRow(-1, 0)]
         [DataRow(0, -1)]
@@ -225,6 +250,9 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
             });
         }
 
+        /// <summary>
+        /// Tests that making a move on an already opened cell throws an ArgumentException.
+        /// </summary>
         [TestMethod]
         public async Task MakeMove_OnAlreadyOpenedCell_ShouldThrowArgumentException()
         {
@@ -239,9 +267,11 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 CurrentField = new int[3, 3]
             };
 
+            // Initialize the field: mark all cells as unopened (-1)
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
                     gameModel.CurrentField[i, j] = -1;
+            // Set cell (1,1) as already opened (e.g., value 1)
             gameModel.CurrentField[1, 1] = 1;
 
             var gameEntity = new GameEntity

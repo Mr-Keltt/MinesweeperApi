@@ -1,12 +1,16 @@
 ﻿using Newtonsoft.Json;
 
-namespace MinesweeperApi.API.Models;
-
-public class ErrorResponse
+namespace MinesweeperApi.API.Models
 {
     /// <summary>
-    /// Описание ошибки
+    /// Represents an error response containing details about an error that occurred.
     /// </summary>
-    [JsonProperty("error")]
-    public string Error { get; set; }
+    public class ErrorResponse
+    {
+        /// <summary>
+        /// Gets or sets the error description.
+        /// </summary>
+        [JsonProperty("error")]
+        public string Error { get; set; }
+    }
 }

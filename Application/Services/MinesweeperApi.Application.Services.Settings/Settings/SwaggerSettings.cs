@@ -1,11 +1,22 @@
-﻿namespace MinesweeperApi.Application.Services.Settings;
-
-public class SwaggerSettings
+﻿namespace MinesweeperApi.Application.Services.Settings
 {
-    public bool Enabled { get; private set; } = false;
-
-    public SwaggerSettings()
+    /// <summary>
+    /// Represents the configuration settings for Swagger integration.
+    /// </summary>
+    public class SwaggerSettings
     {
-        Enabled = false;
+        /// <summary>
+        /// Gets a value indicating whether Swagger is enabled.
+        /// </summary>
+        public bool Enabled { get; private set; } = false;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SwaggerSettings"/> class.
+        /// Sets Swagger to be disabled by default.
+        /// </summary>
+        public SwaggerSettings()
+        {
+            Enabled = false;
+        }
     }
 }
