@@ -60,7 +60,6 @@ namespace MinesweeperApi.Application.GameServiceIntegrationTests
             });
             _mapper = config.CreateMapper();
 
-            // Используем мок логгера
             var loggerMock = new Mock<IAppLogger>();
             _appLogger = loggerMock.Object;
 
@@ -122,7 +121,7 @@ namespace MinesweeperApi.Application.GameServiceIntegrationTests
             Assert.IsTrue(updatedGame.CurrentField[0, 0] >= 0 && updatedGame.CurrentField[0, 0] <= 8);
             Assert.IsFalse(updatedGame.Completed);
 
-            // Act: последовательно открываем оставшиеся ячейки
+            // Act
             int maxIterations = 10, iteration = 0;
             while (!updatedGame.Completed && iteration < maxIterations)
             {
@@ -166,6 +165,7 @@ namespace MinesweeperApi.Application.GameServiceIntegrationTests
             game.CurrentField[0, 0] = -1;
             game.CurrentField[0, 1] = -1;
             game.CurrentField[1, 0] = -1;
+
             game.CurrentField[1, 1] = -2;
             var gameEntity = _mapper.Map<GameEntity>(game);
             await _redisRepository.SetAsync(gameEntity);
@@ -180,7 +180,7 @@ namespace MinesweeperApi.Application.GameServiceIntegrationTests
 
             // Assert
             Assert.IsTrue(game.Completed);
-            Assert.AreEqual(-3, game.CurrentField[1, 1]);
+            Assert.AreEqual(-4, game.CurrentField[1, 1]);
         }
 
         [TestMethod]

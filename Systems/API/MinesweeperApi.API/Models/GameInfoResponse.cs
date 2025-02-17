@@ -62,21 +62,6 @@ public class FieldToApiResolver : IValueResolver<GameModel, GameInfoResponse, st
         int cols = source.CurrentField.GetLength(1);
         var apiField = new string[rows][];
 
-        bool lost = false;
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                if (source.CurrentField[i, j] == -3)
-                {
-                    lost = true;
-                    break;
-                }
-            }
-            if (lost)
-                break;
-        }
-
         for (int i = 0; i < rows; i++)
         {
             apiField[i] = new string[cols];
@@ -95,9 +80,12 @@ public class FieldToApiResolver : IValueResolver<GameModel, GameInfoResponse, st
                     }
                     else
                     {
-                        apiField[i][j] = lost
-                            ? (cell == -3 ? "X" : "M")
-                            : "M";
+                        if (cell == -3)
+                            apiField[i][j] = "X";
+                        else if (cell == -4)
+                            apiField[i][j] = "M";
+                        else
+                            apiField[i][j] = "M";
                     }
                 }
             }

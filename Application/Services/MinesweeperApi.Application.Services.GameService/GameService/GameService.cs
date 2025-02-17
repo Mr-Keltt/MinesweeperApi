@@ -32,11 +32,11 @@ namespace MinesweeperApi.Application.Services.GameService
             if (minesCount >= width * height || minesCount < 1)
             {
                 _logger.Warning(this, "Invalid mines count: {MinesCount} for field size {Width}x{Height}", minesCount, width, height);
-                throw new ArgumentException($"Количество мин быть между 1 и {width * height}.");
+                throw new ArgumentException($"Количество мин должно быть между 1 и {width * height - 1}.");
             }
 
-            newGame.CurrentField = GameServiceHelper.InitializeField(width, height, minesCount);
-            _logger.Debug(this, "Initialized game field.");
+            newGame.CurrentField = GameServiceHelper.InitializeEmptyField(width, height);
+            _logger.Debug(this, "Initialized empty game field.");
 
             var newGameEntity = _mapper.Map<GameEntity>(newGame);
             _logger.Debug(this, "Mapped CreateGameModel to GameEntity. Generated Id: {Id}", newGameEntity.Id);
@@ -78,6 +78,12 @@ namespace MinesweeperApi.Application.Services.GameService
             {
                 _logger.Warning(this, "Cell at Row={Row}, Col={Col} is already open.", row, col);
                 throw new ArgumentException("Ячейка уже открыта.");
+            }
+
+            if (GameServiceHelper.IsFieldEmpty(game.CurrentField))
+            {
+                _logger.Debug(this, "First move detected. Placing bombs excluding cell at Row={Row}, Col={Col}.", row, col);
+                game.CurrentField = GameServiceHelper.PlaceBombs(game.CurrentField, game.MinesCount, row, col);
             }
 
             _logger.Debug(this, "Revealing field at Row={Row}, Col={Col}.", row, col);

@@ -239,7 +239,6 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 CurrentField = new int[3, 3]
             };
 
-            // Инициализируем все ячейки как закрытые (-1) и вручную "открываем" клетку (1,1)
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
                     gameModel.CurrentField[i, j] = -1;
