@@ -21,7 +21,7 @@ services.AddAppHealthChecks();
 
 services.AddAppSwagger(swaggerSettings);
 
-services.RegisterServices();
+services.RegisterServicesAndModels();
 
 
 var app = builder.Build();

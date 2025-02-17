@@ -6,22 +6,19 @@ using MinesweeperApi.Application.Models;
 using MinesweeperApi.Application.Services.GameService;
 using MinesweeperApi.Infrastructure.Data.Entities;
 using MinesweeperApi.Infrastructure.Repositories;
+using MinesweeperApi.Application.Services.Logger;
+using System;
+using System.Threading.Tasks;
 
 namespace MinesweeperApi.Application.GameServiceUnitTests
 {
-    public class FakeMoveModel : MoveModel
-    {
-        public Guid GameId { get; set; }
-        public int Col { get; set; }
-        public int Row { get; set; }
-    }
-
     [TestClass]
     public class GameServiceUnitTests
     {
         public TestContext TestContext { get; set; }
         private Mock<IRedisRepository> _redisRepositoryMock;
         private IMapper _mapper;
+        private Mock<IAppLogger> _appLoggerMock;
         private GameService _gameService;
 
         [TestInitialize]
@@ -29,13 +26,15 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
         {
             TestContext.WriteLine("Setup started.");
             _redisRepositoryMock = new Mock<IRedisRepository>();
+            _appLoggerMock = new Mock<IAppLogger>();
+
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MinesweeperApi.Application.Models.GameProfile());
-                cfg.AddProfile(new MinesweeperApi.Application.Models.CreateGameProfile());
+                cfg.AddProfile(new GameProfile());
+                cfg.AddProfile(new CreateGameProfile());
             });
             _mapper = config.CreateMapper();
-            _gameService = new GameService(_redisRepositoryMock.Object, _mapper);
+            _gameService = new GameService(_redisRepositoryMock.Object, _mapper, _appLoggerMock.Object);
             TestContext.WriteLine("Setup finished.");
         }
 
@@ -129,7 +128,7 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 .ReturnsAsync((GameEntity g) => g);
 
             // Act
-            var move = new FakeMoveModel { GameId = gameModel.Id, Row = 0, Col = 0 };
+            var move = new MoveModel { GameId = gameModel.Id, Row = 0, Col = 0 };
             var updatedGame = await _gameService.MakeMove(move);
             TestContext.WriteLine("After move at (0,0)");
 
@@ -175,7 +174,7 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 .ReturnsAsync((GameEntity g) => g);
 
             // Act
-            var move = new FakeMoveModel { GameId = gameModel.Id, Row = 2, Col = 2 };
+            var move = new MoveModel { GameId = gameModel.Id, Row = 2, Col = 2 };
             var updatedGame = await _gameService.MakeMove(move);
             TestContext.WriteLine("After move at (2,2)");
 
@@ -219,7 +218,7 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 .ReturnsAsync(gameEntity);
 
             // Act & Assert
-            var move = new FakeMoveModel { GameId = gameModel.Id, Row = row, Col = col };
+            var move = new MoveModel { GameId = gameModel.Id, Row = row, Col = col };
             await Assert.ThrowsExceptionAsync<ArgumentException>(async () =>
             {
                 await _gameService.MakeMove(move);
@@ -240,13 +239,11 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 CurrentField = new int[3, 3]
             };
 
-            // Инициализируем все ячейки как закрытые (-1) и вручную "открываем" клетку (1,1) (например, устанавливая число 1)
+            // Инициализируем все ячейки как закрытые (-1) и вручную "открываем" клетку (1,1)
             for (int i = 0; i < 3; i++)
-            {
                 for (int j = 0; j < 3; j++)
                     gameModel.CurrentField[i, j] = -1;
-            }
-            gameModel.CurrentField[1, 1] = 1; 
+            gameModel.CurrentField[1, 1] = 1;
 
             var gameEntity = new GameEntity
             {
@@ -259,7 +256,7 @@ namespace MinesweeperApi.Application.GameServiceUnitTests
                 .ReturnsAsync(gameEntity);
 
             // Act & Assert
-            var move = new FakeMoveModel { GameId = gameModel.Id, Row = 1, Col = 1 };
+            var move = new MoveModel { GameId = gameModel.Id, Row = 1, Col = 1 };
             await Assert.ThrowsExceptionAsync<ArgumentException>(async () =>
             {
                 await _gameService.MakeMove(move);

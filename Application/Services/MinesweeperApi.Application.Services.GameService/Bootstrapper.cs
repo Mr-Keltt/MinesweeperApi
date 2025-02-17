@@ -2,7 +2,7 @@
 
 namespace MinesweeperApi.Application.Services.GameService;
 
-public static class GameServiceBootstrapper
+public static class Bootstrapper
 {
     public static IServiceCollection AddGameService(this IServiceCollection services)
     {
