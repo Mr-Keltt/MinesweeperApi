@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\Models\MinesweeperApi.Application.Models\MinesweeperApi.Application.Models.csproj" />
+    <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.GameService\MinesweeperApi.Application.Services.GameService.csproj" />
     <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Logger\MinesweeperApi.Application.Services.Logger.csproj" />
     <ProjectReference Include="..\..\..\Application\Services\MinesweeperApi.Application.Services.Settings\MinesweeperApi.Application.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\Data\MinesweeperApi.Infrastructure.Data.Context\MinesweeperApi.Infrastructure.Data.Context.csproj" />

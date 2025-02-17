@@ -2,70 +2,71 @@
 using MinesweeperApi.Application.Models;
 using MinesweeperApi.Infrastructure.Data.Entities;
 using MinesweeperApi.Infrastructure.Repositories;
-using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
-namespace MinesweeperApi.Application.Services.GameService;
-
-public class GameService : IGameService
+namespace MinesweeperApi.Application.Services.GameService
 {
-    private readonly IRedisRepository _redisRepository;
-    private readonly IMapper _mapper;
-
-    public GameService(IRedisRepository redisRepository, IMapper mapper)
+    public class GameService : IGameService
     {
-        _redisRepository = redisRepository;
-        this._mapper = mapper;
-    }
+        private readonly IRedisRepository _redisRepository;
+        private readonly IMapper _mapper;
 
-    public async Task<GameModel> CreateNewGameAsync(CreateGameModel newGame)
-    {
-        int width = newGame.Width;
-        int height = newGame.Height;
-        int minesCount = newGame.MinesCount;
-
-        if (minesCount >= width * height || minesCount < 1)
+        public GameService(IRedisRepository redisRepository, IMapper mapper)
         {
-            throw new ArgumentException($"Количество мин быть между 1 и {width * height}.");
+            _redisRepository = redisRepository;
+            _mapper = mapper;
         }
 
-        newGame.CurrentField = GameServiceHelper.InitializeField(width, height, minesCount);
-
-        var newGameEntity = _mapper.Map<GameEntity>(newGame);
-        var gameEntity = await _redisRepository.SetAsync(newGameEntity);
-
-        return _mapper.Map<GameModel>(gameEntity);
-    }
-
-    public async Task<GameModel> MakeMove(MoveModel move)
-    {
-        Guid id = move.GameId;
-        int x = move.Col;
-        int y = move.Row;
-
-        var gameEntity = _redisRepository.GetAsync(id);
-        var game = _mapper.Map<GameModel>(gameEntity);
-
-        if (game == null)
+        public async Task<GameModel> CreateNewGameAsync(CreateGameModel newGame)
         {
-            throw new KeyNotFoundException("Игра не найдена.");
-        }
-            
-        if (x < 0 || x >= game.Width || y < 0 || y >= game.Height)
-        {
-            throw new ArgumentException($"Координаты Col={x}, Row={y} выходят за приделы поля.");
+            int width = newGame.Width;
+            int height = newGame.Height;
+            int minesCount = newGame.MinesCount;
+
+            if (minesCount >= width * height || minesCount < 1)
+                throw new ArgumentException($"Количество мин быть между 1 и {width * height}.");
+
+            newGame.CurrentField = GameServiceHelper.InitializeField(width, height, minesCount);
+
+            var newGameEntity = _mapper.Map<GameEntity>(newGame);
+            var gameEntity = await _redisRepository.SetAsync(newGameEntity);
+
+            return _mapper.Map<GameModel>(gameEntity);
         }
 
-        if (game.CurrentField[y, x] == -1)
+        public async Task<GameModel> MakeMove(MoveModel move)
         {
-            game.Completed = true;
-            await _redisRepository.DeleteAsync(id);
+            Guid id = move.GameId;
+            int col = move.Col;
+            int row = move.Row;
+
+            var gameEntity = await _redisRepository.GetAsync(id);
+            var game = _mapper.Map<GameModel>(gameEntity);
+
+            if (game == null)
+                throw new KeyNotFoundException("Игра не найдена.");
+
+            if (col < 0 || col >= game.Width || row < 0 || row >= game.Height)
+                throw new ArgumentException($"Координаты Col={col}, Row={row} выходят за пределы поля.");
+
+            if (game.CurrentField[row, col] >= 0 && game.CurrentField[row, col] <= 8)
+                throw new ArgumentException("Ячейка уже открыта.");
+
+            game.CurrentField = GameServiceHelper.RevealField(row, col, game.CurrentField);
+
+            if (game.CurrentField[row, col] == -3 || GameServiceHelper.IsWin(game.CurrentField))
+            {
+                game.Completed = true;
+                await _redisRepository.DeleteAsync(id);
+            }
+            else
+            {
+                var modifiedGameEntity = _mapper.Map<GameEntity>(game);
+                await _redisRepository.SetAsync(modifiedGameEntity);
+            }
+
+            return game;
         }
-
-        // TODO: Логика открытия поля по заданным координатам
-
-        var modifiedGameEntity = _mapper.Map<GameEntity>(game);
-        await _redisRepository.SetAsync(modifiedGameEntity);
-
-        return game;
     }
 }
